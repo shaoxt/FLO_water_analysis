@@ -47,7 +47,7 @@ class SensorServer(BaseHTTPRequestHandler):
                                                       database='FLO_water')
 
 
-                insert_value(cnx, sensor_name[0], int(value[0]))
+                insert_value(cnx, sensor_name[0], float(value[0]))
 
                 self.send_response(200)
                 self.send_header("Content-type", "text/json")
@@ -55,6 +55,10 @@ class SensorServer(BaseHTTPRequestHandler):
 
                 self.wfile.write(bytes("{\"code\": 200,\"message\": \"OK\"}", "utf-8"))
 
+            try:
+               self.wfile.close()
+            except:
+               print("Something wrong")
 
 if __name__ == '__main__':
     webServer = HTTPServer(("0.0.0.0", 8082), SensorServer)
