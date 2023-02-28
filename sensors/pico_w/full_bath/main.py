@@ -69,13 +69,15 @@ while True:
         except:
             print("Connecting wifi error")
 
-        send_humidity_sensor()
-
-    time.sleep(1)
-    index += 1
+        try:
+            send_humidity_sensor()
+        except:
+            print("Sending humidity error")
 
     try:
         led_pin.off()
     except:
         print("Turning off led error")
 
+    index += 1
+    time.sleep(1)

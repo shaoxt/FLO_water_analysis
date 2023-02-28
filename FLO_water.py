@@ -61,6 +61,6 @@ if __name__ == "__main__":
     last_gpm = 0
     last_psi = 0
     last_ts = ""
-    while TRUE:
+    while True:
         time.sleep(5)
         last_gpm, last_psi, last_ts = adddata(py_flo, last_ts, last_psi, last_gpm)
