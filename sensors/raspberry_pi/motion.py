@@ -23,7 +23,7 @@ def send_data(value, sensor_name):
 while True:
     try:
         if GPIO.input(pir):             #Check whether pir is HIGH
-            send_data(1, "guest_bath")
+            send_data(1, "guest_bath_motion")
             time.sleep(2)              #D1- Delay to avoid multiple detection
     except Exception as ex:
         print(ex)
