@@ -7,8 +7,8 @@ import network
 vibration_sensor_pin = Pin(22, Pin.IN)
 
 led_pin = Pin(19, Pin.OUT)
-ssid = 'YOUR_SSID'
-password = 'YOUR_WIFI_PASSWORD'
+ssid = 'Bolango'
+password = 'shaoyourui071'
 
 
 def connect_wifi(ssid, password):
@@ -33,10 +33,15 @@ def connect_wifi(ssid, password):
         status = wlan.ifconfig()
         print( 'ip = ' + status[0] )
 
+
 # Define the callback function to trigger when the vibration sensor is triggered
 def on_vibration_triggered(pin):
     led_pin.on()
-    send_data(1, "guest_room_toilet")
+    try:
+        send_data(1, "guest_room_toilet")
+    except:
+        print("Sending data error")
+
     print("Vibration detected!" + str(time.time_ns()))
 
 
@@ -53,10 +58,13 @@ vibration_sensor_pin.irq(trigger=Pin.IRQ_RISING, handler=on_vibration_triggered)
 # Run an infinite loop to keep the program running
 while True:
     try:
+        time.sleep(2)
+    except:
+        break
+    try:
         connect_wifi(ssid, password)
     except:
-        print("Connecting wifi error")
-    time.sleep(1)
+        print("Connecting wifi error2")
     try:
         led_pin.off()
     except:
