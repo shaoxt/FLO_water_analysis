@@ -9,6 +9,8 @@ vibration_sensor_pin = Pin(22, Pin.IN)
 led_pin = Pin(19, Pin.OUT)
 ssid = 'Bolango'
 password = 'shaoyourui071'
+
+global has_error
 has_error = False
 
 
@@ -37,6 +39,7 @@ def connect_wifi(ssid, password):
 
 # Define the callback function to trigger when the vibration sensor is triggered
 def on_vibration_triggered(pin):
+    global has_error
     try:
         led_pin.on()
         send_data(1, "guest_bath_toilet")
@@ -66,12 +69,13 @@ while True:
     except:
         print("Turning off led error")
     time.sleep(2)
-    if n % 11 == 0:
+    if n % 11 == 0 or has_error:
         try:
             connect_wifi(ssid, password)
             has_error = False
         except Exception as ex:
             print("Connecting wifi error", ex)
+            has_error = True
 
     n += 1
 
